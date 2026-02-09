@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * // GoSlice class maps to:
- * // C type: struct { void *data; GoInt len; GoInt cap; }
- * // Fields must be public; otherwise an exception will occur:
+ * GoSlice class maps to C type <code>struct { void *data; GoInt len; GoInt cap; } </code>
+ * <p>
+ * Fields must be public; otherwise an exception will occur:
  *
  * @author 唐家林 on 2021-01-14.
  */
