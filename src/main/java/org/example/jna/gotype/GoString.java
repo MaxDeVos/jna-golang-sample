@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * // GoString class maps to:
- * // C type struct { const char *p; GoInt n; }
- * // Fields must be public; otherwise an exception will occur: “which do not match declared field names”
+ * GoString class maps to C type <code>struct { const char *p; GoInt n; } </code>
+ * <p>
+ * Fields must be public; otherwise an exception will occur: “which do not match declared field names”
  *
  * @author 唐家林 on 2021-01-14.
  */
