@@ -1,41 +1,50 @@
+# NOTICE
+This repository is an English translation of [sudot](https://github.com/sudot)'s [jna-golang-sample](https://github.com/sudot/jna-golang-sample). 
+**If you find this repository useful, please give the original repository a star**
+
+Unfortunately, I cannot read Mandarin, nor speak Chinese. 
+Thus, these translations are machine-generated, 
+and I make absolutely zero guarantees regarding their correctness. 
+
 # jna-golang-sample
 
-使用 Java 通过 jna 方式调用 Golang 语言的示例，并通过 InvocationMapper 和 TypeMapper 两种方式解决返回参数内存回收问题。
+Use Java to call Go via JNA (Java Native Access), and solve the return-value memory cleanup issue in two ways: InvocationMapper and TypeMapper.
 
-> 本项目因使用 cgo，故不支持交叉编译，虽然可通过 https://github.com/karalabe/xgo 的方式操作，但不如直接装目标虚拟机进行编译来的方便
+This project uses CGO, so cross-compilation is not supported. Although you can use https://github.com/karalabe/xgo
+ as a workaround, it’s more convenient to compile directly on the target VM.
 
-## 环境搭建
+## Environment Setup
+### 1. Install the Go SDK
 
-### 1.安装 golang sdk
+Official download: https://golang.org/dl/
 
-官方下载地址：https://golang.org/dl/
+Faster mirror: https://studygolang.com/dl
 
-速度更快的下载地址：https://studygolang.com/dl
+Install it anywhere you like, and you’re done.
 
-安装到任意你喜欢的地方，就已经完成了。
-
-### 2.设置环境变量
+### 2. Set environment variables
 
 - GOROOT
 
-  > golang sdk 的安装目录
+  > `golang sdk <installation directory>`
 
 - GOPATH
 
-  > go 代码存放的地方，但是 go1.11之后的版本不用将源码放在这里也可以了，所以此处是放置 go 所依赖的第三方源码的地方。
+The location where code is stored. However, starting from Go 1.11, source code no longer needs to be placed here, so this directory is used to store third-party source code that Go depends on.
+  > `go <go source location>`
 
 ```bash
-# 此路径仅为演示路径,实际路径请按你安装的 sdk 路径为准
-GOROOT=D:\deve\go
-# 此路径仅为演示路径,实际路径请按你喜欢的为准
+# This path is for demonstration only; use the actual path where your SDK is installed.
+GOROOT=D:\dev\go
+# This path is for demonstration only; use any path you prefer.
 GOPATH=D:\gopath
 ```
 
 
 
-### 3.Go 模块代理
+### 3. Go module proxy
 
-打开终端，并执行如下命令：
+Open a terminal and run the following commands：
 
 ```bash
 go env -w GOPROXY=https://goproxy.cn,direct
@@ -43,117 +52,103 @@ go env -w GOPROXY=https://goproxy.cn,direct
 
 
 
-## 4.安装 gcc
+## 4. Install GCC
 
-### windows 安装方式
+### Windows installation method
 
-下载地址：http://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download
+[MinGW Download](http://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download)
 
-> 注意：安装的时候注意选平台。
+> Note: Pay attention to selecting the correct target platform during installation.
 >
 > ![1610680778788](README/1610680778788.png)
 
-## 编译指令
+## Build commands
 
-### 通用编译
+### General build
 
 ```bash
-# 编译 windows 版本
+# build windows version
 go build -buildmode=c-shared -o awesome.dll awesome.go
 
-# 编译 linux 版本
+# build linux verison
 go build -buildmode=c-shared -o awesome.so awesome.go
 
-# 编译 mac 版本
+# build mac version
 go build -buildmode=c-shared -o libawesome.dylib awesome.go
 ```
 
-### 交叉编译
+Cross-compilation
 
-> 本项目因使用 cgo，故不支持交叉编译，虽然可通过 https://github.com/karalabe/xgo 的方式操作，但不如直接装目标虚拟机进行编译来的方便
+This project uses CGO, so cross-compilation is not supported. Although it can be done via https://github.com/karalabe/xgo
+, it is more convenient to install a target VM and compile directly on it.
 
-**交叉编译**在 golang 中表示在某个平台下编译非本平台执行的二进制版本。
+Cross-compilation in Go means building a binary for a platform different from the one you are currently on.
 
-比如：在 windows 开发，需要编译出 linux 版本或 mac 版本。
+For example: developing on Windows but needing to build a Linux or macOS version.
 
-可通过 `go env` 查看当前系统的变量：
+You can view the current system variables with go env:
 
 ```bash
 > go env
-set GOHOSTARCH=amd64 # 本机的架构
-set GOHOSTOS=windows # 本机的系统
-set GOARCH=amd64     # 目标平台的架构，交叉编译时需要设置
-set GOOS=windows     # 目标平台的系统，交叉编译时需要设置
-set CGO_ENABLED=0    # 是否启用 CGO
+set GOHOSTARCH=amd64 # Host machine architecture
+set GOHOSTOS=windows # Host operating system
+set GOARCH=amd64     # Target platform architecture (must be set for cross-compilation)
+set GOOS=windows     # Target platform operating system (must be set for cross-compilation)
+set CGO_ENABLED=0    # Whether CGO is enabled
 ```
 
-交叉编译的关键在于编译的时候需要指定两个变量：
+The key to cross-compilation is specifying two variables at build time:
 
 - GOOS
 
-  > 目标平台系统
+  > Target operating system
 
 - GOARCH
 
-  > 目标平台架构
+  > Target platform architecture
 
-以上两个变量的值在后续有一份列表，可根据需要查阅。也可通过 golang sdk 自带命令 `go tool dist list` 查阅。
+The valid values for these two variables are listed later and can be looked up as needed. You can also check them using the Go SDK command go tool dist list.
 
-下面列出常用的 windows 、linux、mac 三个系统的编译指令。
+Below are the commonly used build commands for Windows, Linux, and macOS.
 
-#### 在 windows 上编译
+
+#### Building on Windows
 
 ```bash
-# 编译 windows 版本
+# build windows version
 SET CGO_ENABLED=0
 SET GOOS=windows
 SET GOARCH=amd64
 go build -buildmode=c-shared -o awesome.dll awesome.go
 
-# 编译 linux 版本
+# build linux verison
 SET CGO_ENABLED=0
 SET GOOS=linux
 SET GOARCH=amd64
 go build -buildmode=c-shared -o awesome.so awesome.go
 
-# 编译 mac 版本
+# build mac version
 SET CGO_ENABLED=0
 SET GOOS=darwin
 SET GOARCH=amd64
 go build -buildmode=c-shared -o awesome.so awesome.go
 ```
 
-
-
-#### 在 linux 上编译
+#### Building on Linux/Mac
 
 ```bash
-# 编译 windows 版本
+# build windows version
 CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -buildmode=c-shared -o awesome.dll awesome.go
-# 编译 linux 版本
+# build linux verison
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -buildmode=c-shared -o awesome.so awesome.go
-# 编译 mac 版本
+# build mac version
 CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -buildmode=c-shared -o awesome.so awesome.go
 ```
 
+### GOOS and GOARCH supported OS list
 
-
-#### 在 mac 上编译
-
-```bash
-# 编译 windows 版本
-CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -buildmode=c-shared -o awesome.dll awesome.go
-# 编译 linux 版本
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -buildmode=c-shared -o awesome.so awesome.go
-# 编译 mac 版本
-CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -buildmode=c-shared -o awesome.so awesome.go
-```
-
-### GOOS 和 GOARCH 支持列表
-
-查看当前 Go 版本支持的编译平台
+View the compilation platforms supported by the current Go version
 
 ```bash
 go tool dist list
 ```
-
