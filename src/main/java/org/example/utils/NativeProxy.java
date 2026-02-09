@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 动态库代理
+ * Dynamic library proxy
  *
  * @author 唐家林 on 2021-01-28.
  */

@@ -36,8 +36,8 @@ public class Demo {
         System.out.print("awesome.sort(53,11,5,2,88) = [");
         long[] sorted = slice.data.getLongArray(0, nums.length);
         StdLib.freeNativeHeap(slice.data);
-        for (int i = 0; i < sorted.length; i++) {
-            System.out.print(sorted[i] + " ");
+        for (long l : sorted) {
+            System.out.print(l + " ");
         }
         System.out.println("]");
 
