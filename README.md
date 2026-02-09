@@ -6,6 +6,7 @@ This repository is an English translation of [唐家林 (English: Tang Jialin)](
 Unfortunately, I cannot read Mandarin, nor speak Chinese. 
 Thus, these translations are machine-generated, 
 and I make absolutely zero guarantees regarding their correctness. 
+The code however, remains untouched.
 
 # jna-golang-sample
 
