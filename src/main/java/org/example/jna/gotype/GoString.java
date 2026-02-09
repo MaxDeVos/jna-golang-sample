@@ -21,7 +21,7 @@ public class GoString extends Structure implements Structure.ByValue {
     }
 
     public GoString(String value) {
-        // golang 中 string 没有 null
+        // In Go, a string cannot be null.
         this.value = value == null ? "" : value;
         this.n = this.value.getBytes(StandardCharsets.UTF_8).length;
     }
