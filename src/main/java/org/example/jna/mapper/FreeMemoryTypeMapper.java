@@ -19,11 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 回收字符串处理器
+ * String cleanup processor
  * <p>
- * 此处理器需要通过动态代理的方式织入调用方法上,方可实现自动回收 C 中的相应内存
+ * This processor must be woven into the invoked methods via dynamic proxy
+ * in order to automatically reclaim the corresponding memory allocated in C.
  * <p>
- * 示例:
+ * Example:
  * <pre>
  * AwesomeInterface awesome = NativeProxy.load(args[0], AwesomeInterface.class);
  *
@@ -37,7 +38,7 @@ import java.util.Map;
  * System.out.println("awesome.echoGoString :" + echo.value);
  * </pre>
  *
- * @author tangjialin on 2021-01-28.
+ * @author 唐家林 on 2021-01-28.
  */
 public class FreeMemoryTypeMapper implements TypeMapper, InvocationMapper {
     private static final Map<Class<?>, java.util.function.Function<Pointer, ?>> VALUE_CONVER_FUNCTION_MAP = new HashMap<>();
@@ -74,11 +75,11 @@ public class FreeMemoryTypeMapper implements TypeMapper, InvocationMapper {
     }
 
     /**
-     * 在接收由 JNA 返回的原始值后释放 Java 无法管理的内存区域
+     * Free memory regions that Java cannot manage after receiving the raw value returned by JNA.
      * <p>
-     * 适配 {@link FreeMemoryTypeMapper#getFromNativeConverter(java.lang.Class)}
+     * Compatible {@link FreeMemoryTypeMapper#getFromNativeConverter(java.lang.Class)}
      *
-     * @author tangjialin on 2021-02-02.
+     * @author 唐家林 on 2021-02-02.
      */
     private static class FreeMemoryFromNativeConverter implements FromNativeConverter {
         private final java.util.function.Function<Pointer, ?> function;
@@ -104,15 +105,16 @@ public class FreeMemoryTypeMapper implements TypeMapper, InvocationMapper {
     }
 
     /**
-     * 在接收由 JNA 返回的原始值后释放 Java 无法管理的内存区域
+     * Free memory regions that Java cannot manage after receiving the raw value returned by JNA.
      * <p>
-     * 此类用于适配 {@link FreeMemoryFromNativeConverter}
+     * This class is used to adapt {@link FreeMemoryFromNativeConverter}
      * <p>
-     * 使通过 {@link InvocationMapper#getInvocationHandler(com.sun.jna.NativeLibrary, java.lang.reflect.Method)}
-     * 和 {@link TypeMapper#getFromNativeConverter(java.lang.Class)}
-     * 两种返回值处理方式能有统一的处理效果
+     * It provides a unified handling effect for the two return-value processing approaches
+     * {@link InvocationMapper#getInvocationHandler(com.sun.jna.NativeLibrary, java.lang.reflect.Method)}
+     * {@link TypeMapper#getFromNativeConverter(java.lang.Class)}
+     * Both return-value handling approaches can achieve a unified processing effect.
      *
-     * @author tangjialin on 2021-02-02.
+     * @author 唐家林 on 2021-02-02.
      */
     private static class FreeMemoryInvocationHandler implements InvocationHandler {
 
@@ -138,7 +140,7 @@ public class FreeMemoryTypeMapper implements TypeMapper, InvocationMapper {
 
     }
 
-    /** 响应值转换 *****************************************************************************************************/
+    /** Response value conversion ************************************************************************************/
     private static class StringConvertHandler implements java.util.function.Function<Pointer, String> {
         private static final String ENCODING = StandardCharsets.UTF_8.name();
 

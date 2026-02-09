@@ -3,16 +3,16 @@ package org.example.utils;
 import java.time.Duration;
 
 /**
- * 保持逻辑的运行
+ * Keep logic running
  *
- * @author tangjialin on 2021-01-27.
+ * @author 唐家林 on 2021-01-27.
  */
 public class Sustain {
     /**
-     * 保持指定的逻辑运行指定次数后结束
+     * Keep the specified logic running for a given number of times, then stop.
      *
-     * @param count    需要运行的次数
-     * @param runnable 需要运行的逻辑
+     * @param count    number of times to run
+     * @param runnable logic to execute
      */
     public static void run(long count, Runnable runnable) {
         for (int i = 0; i < count; i++) {
@@ -21,10 +21,10 @@ public class Sustain {
     }
 
     /**
-     * 保持指定的逻辑运行指定时长后结束
+     * Keep the specified logic running for a given duration, then stop.
      *
-     * @param duration 需要运行的时长
-     * @param runnable 需要运行的逻辑
+     * @param duration duration to run
+     * @param runnable logic to execute
      */
     public static void run(Duration duration, Runnable runnable) {
         long timeMillis = System.currentTimeMillis() + duration.toMillis();

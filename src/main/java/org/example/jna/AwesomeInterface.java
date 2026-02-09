@@ -6,67 +6,68 @@ import org.example.jna.gotype.GoSlice;
 import org.example.jna.gotype.GoString;
 
 /**
- * 演示接口（interface-mapping）
+ * Demo interface (interface-mapping)
  * <p>
- * direct-mapping 对于基本类型（包括 Pointer）性能更好，interface-mapping 在复杂类型上略优。
+ * Direct mapping performs better for primitive types (including Pointer),
+ * while interface mapping has a slight advantage when dealing with complex types.
  *
- * @author tangjialin on 2021-01-28.
+ * @author 唐家林 on 2021-01-28.
  */
 public interface AwesomeInterface extends Library {
 
     /**
-     * 两个数相加，并返回相加后的数
+     * Add two numbers and return the result.
      *
-     * @param a 相加的第一个数
-     * @param b 相加的第二个数
-     * @return 两个数相加的结果
+     * @param a the first number to add
+     * @param b the second number to add
+     * @return the result of adding the two numbers
      */
     long add(long a, long b);
 
     /**
-     * 计算一个角度的余弦值
+     * Compute the cosine of a given angle.
      *
-     * @param val 角度值
-     * @return 角度的余弦值
+     * @param val the angle value
+     * @return the cosine of the angle
      */
     double cosine(double val);
 
     /**
-     * 对数组进行排序
+     * Sort an array.
      *
-     * @param arrays 需要排序的数字
+     * @param arrays the numbers to be sorted
      */
     void sort(GoSlice arrays);
 
     /**
-     * 输出给定值到控制台
+     * Print the given value to the console.
      *
-     * @param value 需要输出的值
-     * @return 返回此方法被调用的总次数
+     * @param value the value to be printed
+     * @return the total number of times this method has been called
      */
     long print(GoString value);
 
     /**
-     * 回显字符串
+     * Echo a string.
      *
-     * @param value 字符串入参
-     * @return 返回和入参一样的字符串
+     * @param value the input string
+     * @return the same string as the input
      */
     String echoString(GoString value);
 
     /**
-     * 回显字符串
+     * Echo a string.
      *
-     * @param value 字符串入参
-     * @return 返回和入参一样的字符串
+     * @param value the input string
+     * @return the same string as the input
      */
     WString echoWString(GoString value);
 
     /**
-     * 回显字符串
+     * Echo a string.
      *
-     * @param value 字符串入参
-     * @return 返回和入参一样的字符串
+     * @param value the input string
+     * @return the same string as the input
      */
     GoString.ByReference echoGoString(GoString value);
 

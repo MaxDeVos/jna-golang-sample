@@ -1,5 +1,5 @@
 # NOTICE
-This repository is an English translation of [sudot](https://github.com/sudot)'s [jna-golang-sample](https://github.com/sudot/jna-golang-sample). 
+This repository is an English translation of [唐家林 (English: Tang Jialin)](https://github.com/sudot)'s [jna-golang-sample](https://github.com/sudot/jna-golang-sample). 
 
 **If you find this repository useful, please give the original repository a star**
 

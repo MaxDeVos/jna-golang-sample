@@ -10,10 +10,10 @@ import java.util.List;
 
 /**
  * // GoSlice class maps to:
- * // C type struct { void *data; GoInt len; GoInt cap; }
- * // 属性必须是 public, 否则会异常 which do not match declared field names
+ * // C type: struct { void *data; GoInt len; GoInt cap; }
+ * // Fields must be public; otherwise an exception will occur:
  *
- * @author tangjialin on 2021-01-14.
+ * @author 唐家林 on 2021-01-14.
  */
 public class GoSlice extends Structure implements Structure.ByValue {
     public Pointer data;
@@ -35,7 +35,7 @@ public class GoSlice extends Structure implements Structure.ByValue {
 //            //noinspection unchecked
 //            Class<T> vClass = (Class<T>) (actualTypeArgument instanceof Class ? actualTypeArgument : ((ParameterizedType) actualTypeArgument).getRawType());
 //        } catch (Exception e) {
-//            throw new RuntimeException(getClass() + " 缺少泛型", e);
+//            throw new RuntimeException(getClass() + " Generic type missing", e);
 //        }
         int size = Native.getNativeSize(long.class);
         Memory arr = new Memory(array.length * size);

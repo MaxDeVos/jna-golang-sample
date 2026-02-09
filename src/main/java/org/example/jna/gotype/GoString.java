@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * // GoString class maps to:
  * // C type struct { const char *p; GoInt n; }
- * // 属性必须是 public, 否则会异常 which do not match declared field names
+ * // Fields must be public; otherwise an exception will occur: “which do not match declared field names”
  *
- * @author tangjialin on 2021-01-14.
+ * @author 唐家林 on 2021-01-14.
  */
 public class GoString extends Structure implements Structure.ByValue {
     public String value;

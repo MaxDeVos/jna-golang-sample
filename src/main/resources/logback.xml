@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 级别从高到低 OFF 、 FATAL 、 ERROR 、 WARN 、 INFO 、 DEBUG 、 TRACE 、 ALL -->
-<!-- 日志输出规则 根据当前ROOT 级别，日志输出时，级别高于root默认的级别时 会输出 -->
-<!-- 以下 每个配置的 filter 是过滤掉输出文件里面，会出现高级别文件，依然出现低级别的日志信息，通过filter 过滤只记录本级别的日志 -->
-<!-- scan 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。 -->
-<!-- scanPeriod 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 -->
-<!-- debug 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。 -->
+<!-- Levels from high to low: OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, ALL -->
+<!-- Log output rule: based on the current ROOT level, logs with a level higher than the ROOT level will be output -->
+<!-- For each configuration below, a filter is used to prevent lower-level logs from appearing in higher-level log files;
+     the filter ensures that only logs of the specified level are recorded -->
+<!-- scan: when set to true, the configuration file will be reloaded if it changes; default is true -->
+<!-- scanPeriod: interval for checking configuration file changes. If no time unit is specified, milliseconds are used.
+     This takes effect when scan is true. Default is 1 minute -->
+<!-- debug: when set to true, logback internal log information will be printed to help observe logback runtime status;
+     default is false -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <!-- 控制台日志 -->
+    <!-- Console logging -->
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d [%t] %5p [%c:%L] - %m%n</pattern>

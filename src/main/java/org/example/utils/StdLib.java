@@ -5,9 +5,9 @@ import com.sun.jna.Platform;
 import com.sun.jna.Pointer;
 
 /**
- * 通用库
+ * Common library
  *
- * @author tangjialin on 2021-01-28.
+ * @author 唐家林 on 2021-01-28.
  */
 public class StdLib {
     static {
@@ -15,53 +15,66 @@ public class StdLib {
     }
 
     /**
-     * 释放 Native Heap 空间
+     * Free Native Heap memory.
      *
-     * @param p 释放变量的指针值
+     * @param p pointer value of the memory to be freed
      */
     public static native void free(long p);
 
     /**
-     * 释放底层语言分配的空间
+     * Free memory allocated by the underlying native language.
+     *
      * <p>
-     * 调用 C 通用库的 free 函数来释放空间
+     * Calls the C standard library {@code free} function to release memory.
+     *
      * <p>
-     * 使用场景:
-     * 底层语言创建并使用的空间，例如下面代码，此代码返回的 C.CString(msg) 就需要调用此函数进行释放
+     * Usage scenario:
+     * Memory created and owned by the underlying language. For example, in the
+     * following code, the {@code C.CString(msg)} returned must be released
+     * using this method:
+     *
      * <pre>
      * //export echoString
      * func echoString(msg string) *C.char {
-     * 	return C.CString(msg)
+     *     return C.CString(msg)
      * }
      * </pre>
      *
-     * @param pointer 释放变量的指针值
+     * @param pointer pointer to the memory to be freed
      */
     public static void free(Pointer pointer) {
         long p = Pointer.nativeValue(pointer);
-        if (p == 0L) { return; }
+        if (p == 0L) {
+            return;
+        }
         free(p);
         Pointer.nativeValue(pointer, 0L);
     }
 
     /**
-     * 释放 Native Heap 空间
+     * Free Native Heap memory.
+     *
      * <p>
-     * 调用 {@link Native#free(long)} 来释放空间
+     * Calls {@link Native#free(long)} to release memory.
+     *
      * <p>
-     * 使用场景:
-     * 底层语言创建并使用的空间，例如下面代码，此代码产生的 new Memory 就需要调用此函数进行释放
+     * Usage scenario:
+     * Memory allocated on the Java side using JNA, for example the {@code new Memory}
+     * created in the following code must be released using this method:
+     *
      * <pre>
      * int size = Native.getNativeSize(long.class);
      * Memory arr = new Memory(array.length * size);
      * arr.write(0, array, 0, array.length);
      * </pre>
      *
-     * @param pointer 释放变量的指针值
+     * @param pointer pointer to the memory to be freed
      */
     public static void freeNativeHeap(Pointer pointer) {
         long p = Pointer.nativeValue(pointer);
-        if (p == 0L) { return; }
+        if (p == 0L) {
+            return;
+        }
         Native.free(p);
         Pointer.nativeValue(pointer, 0L);
     }

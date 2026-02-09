@@ -9,13 +9,13 @@ import org.example.utils.StdLib;
 import java.io.InputStream;
 
 /**
- * window:
+ * Windows:
  * java -Djava.library.path=. -jar jna-golang-sample-jar-with-dependencies.jar "D:/src/jna-golang-sample/go/awesome.dll"
  * <p>
- * linux / macos
+ * Linux / macOS
  * java -Djava.library.path=. -jar jna-golang-sample-jar-with-dependencies.jar "/home/jna-golang-sample/go/awesome.so"
  *
- * @author tangjialin on 2020-12-28.
+ * @author 唐家林 on 2020-12-28.
  */
 public class Demo {
     public static void main(String[] args) throws Exception {

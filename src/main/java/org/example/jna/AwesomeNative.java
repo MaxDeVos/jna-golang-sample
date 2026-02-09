@@ -6,11 +6,12 @@ import org.example.jna.gotype.GoString;
 import org.example.utils.NativeProxy;
 
 /**
- * 演示接口（direct-mapping）
+ * Demo interface (direct-mapping)
  * <p>
- * direct-mapping 对于基本类型（包括 Pointer）性能更好，interface-mapping 在复杂类型上略优。
+ * Direct mapping performs better for primitive types (including Pointer),
+ * while interface mapping has a slight advantage when dealing with complex types.
  *
- * @author tangjialin on 2021-02-02.
+ * @author 唐家林 on 2021-02-02.
  */
 public class AwesomeNative {
     static {
