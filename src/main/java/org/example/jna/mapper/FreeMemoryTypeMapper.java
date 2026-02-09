@@ -105,8 +105,6 @@ public class FreeMemoryTypeMapper implements TypeMapper, InvocationMapper {
     }
 
     /**
-     * Free memory regions that Java cannot manage after receiving the raw value returned by JNA.
-     * <p>
      * This class is used to adapt {@link FreeMemoryFromNativeConverter}
      * <p>
      * It provides a unified handling effect for the two return-value processing approaches
